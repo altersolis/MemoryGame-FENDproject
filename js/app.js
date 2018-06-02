@@ -32,9 +32,7 @@ function start(){
 
     // call a funcao do click event
     click(card);
-
   }
-
 }
 
 
@@ -97,7 +95,6 @@ function checkPair(currentCard,previousCard){
     openCards = [];
 
 // verific se ´e o ult par e entao jogo acaba
-    gameOver();
 
   } else {
 
@@ -112,6 +109,9 @@ function checkPair(currentCard,previousCard){
 
 // e adicionamos 1 MOVE fazendo o call a funcao ADDMOVE
   addMove();
+
+    gameOver();
+
 }
 
 
@@ -121,12 +121,11 @@ function gameOver(){
   if(cards.length === matchedCards.length){
 
 // lança o modal    
-                toggleModal();
-//alert("Game Over!");
+    toggleModal();
 
 //para parar o Timer
-//    stopTimer();
-      clearInterval(runTimer);
+//  stopTimer();
+    clearInterval(runTimer);
   }
  
 }
@@ -149,23 +148,26 @@ function addMove(){
 /*****   PARA O RATING   *****/
 
 const score = document.querySelector(".stars");
-score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+//score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+score.innerHTML = `<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>`;
 function rating(){
   switch(moves){
     case 10:
-      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+//      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+      score.innerHTML = '<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>';
     break;
 
     case 13:
-      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+//      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+      score.innerHTML = '<i class="fa fa-star"></i> <i class="fa fa-star"></i>';
     break;
 
     case 15:
-      score.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+      score.innerHTML = '<i class="fa fa-star"></i>';
     break;
 
     case 16:
-      score.innerHTML = "";
+      score.innerHTML = "0 Stars";
     break;
   }
 }
@@ -186,7 +188,8 @@ restartButton.addEventListener("click", function(){
   matchedCards = [];
   moves = 0;
   movesContainer.innerHTML = moves;
-  score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+//  score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+  score.innerHTML = `<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>`;
 
   clearInterval(runTimer);
   isFirstClick = true;
@@ -203,12 +206,27 @@ restartButton.addEventListener("click", function(){
 
     function toggleModal() {
         modal.classList.toggle("show-modal");
+
+        const finalMoves = document.getElementById("finalMoves");
+        finalMoves.innerHTML = moves + " moves";
+//       finalMoves.innerHTML = movesContainer + " moves";
+
+  const finalTimer = document.getElementById("finalTimer");
+  finalTimer.innerHTML = totalSeconds + " seconds";
+
+        const finalScore = document.getElementById("finalStar");
+        finalStar.innerHTML = "star rating: " + score.innerHTML;
+
+
+
+
+
     }
 
     function windowOnClick(event) {
         if (event.target === modal) {
 //            toggleModal();
-// sem a linha de cima, clicando fora da x o modal nao fecha.
+// sem a linha de cima, clicando fora da x (close) o modal nao fecha.
         }
     }
 
@@ -252,17 +270,15 @@ And so on....
 
 E AINDA FALTA:
 
-  shuffle -> feito
   timer -> feito s´o para segundos
   modal -> qs feito! Falta mod o conteudo
 
   
   transitions das cartas
-  mudar para arrow functions
+
   responsive - display flex, etc do Flexbox e alguns break-points
 
-  bug do game over cujo popup aparece antes de mostrar ult carta
-
+  bug do modal q as vezes tem 1 move menos q o counterMoves
 
 *************************************************************/
 
