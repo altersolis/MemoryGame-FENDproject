@@ -19,4 +19,7 @@ Used typefaces from **Google Fonts** and icon images from **Font Awesome**.
 ## Installation
 Doesn't need any installation.
 
+## Playable version
+A playable version is found at _https://altersolis.github.io/MemoryGame-FENDproject/_
+
 
