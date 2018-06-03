@@ -163,10 +163,6 @@ function rating(){
     case 15:
       score.innerHTML = '<i class="fa fa-star"></i>';
     break;
-
-    case 16:
-      score.innerHTML = "0 Stars";
-    break;
   }
 }
 
@@ -184,6 +180,7 @@ restartButton.addEventListener("click", function(){
 
   // remover as variaveis
   matchedCards = [];
+  openCards = [];
   moves = 0;
   movesContainer.innerHTML = moves;
   score.innerHTML = `<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>`;
