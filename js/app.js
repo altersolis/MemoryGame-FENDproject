@@ -12,7 +12,7 @@ timerContainer.innerHTML = totalSeconds;
 // este array ira coleccionar as cartas q se vao mostrando em cada jogada
 let openCards = [];
 
-// este array ira coeleccionar os pares q sejam iguais
+// este array ira coleccionar os pares q sejam iguais
 let matchedCards = [];
 
 // ... e vou cria-las aqui
@@ -44,42 +44,44 @@ function startTimer(){
     timerContainer.innerHTML = totalSeconds;
   }, 1000);
 }
-
 // para comecar o timer apos o 1º click
 let isFirstClick = true;
+
 
 /*****  FUNCTION PARA CRIAR O CLICK EVENT  *****/
 
 function click(card){
+
 // para criar o click event em cada carta
-    card.addEventListener("click", function(){
+  card.addEventListener("click", function(){
 
 // para comecar o timer apos o 1º click
-      if(isFirstClick){
-        startTimer();
-        isFirstClick = false;
-      }
+    if(isFirstClick){
+      startTimer();
+      isFirstClick = false;
+    }
 
-      const currentCard = this;
-      const previousCard = openCards[0];
+    const currentCard = this;
+    const previousCard = openCards[0];
 
 // viramos a carta 1 q ira para o openCards array
-      if(openCards.length === 1){
-
-        card.classList.add("open", "show", "disable");
-        openCards.push(this);
+    if(openCards.length === 1){
+      card.classList.add("open", "show", "disable");
+      openCards.push(this);
 
 // viramos a carta 2 e comparamos com carta 1, dando-lhe a classe match
 
+
 /******  FUNCAO COMPARACAO (CHECKPAIR) *****/
-checkPair(currentCard,previousCard);
+    checkPair(currentCard,previousCard);
 
 // ou se esta nao for a carta 1:
-      } else {
-        currentCard.classList.add("open", "show", "disable");
-        openCards.push(this);
-      }
-    });
+    } else {
+
+      currentCard.classList.add("open", "show", "disable");
+      openCards.push(this);
+    }
+  });
 }
 
 function checkPair(currentCard,previousCard){
@@ -95,7 +97,7 @@ function checkPair(currentCard,previousCard){
     openCards = [];
 
 // verific se ´e o ult par e entao jogo acaba
-
+// a funcao GAMEOVER vem mais abaixo para q o MOVE seja contado no MODAL (correcao de bug!)
   } else {
 
 // caso nao sejam iguais, tb damos tempo para estar visiveis
@@ -110,8 +112,7 @@ function checkPair(currentCard,previousCard){
 // e adicionamos 1 MOVE fazendo o call a funcao ADDMOVE
   addMove();
 
-    gameOver();
-
+  gameOver();
 }
 
 
@@ -127,7 +128,6 @@ function gameOver(){
 //  stopTimer();
     clearInterval(runTimer);
   }
- 
 }
 
 
@@ -135,7 +135,7 @@ function gameOver(){
 
 const movesContainer = document.querySelector(".moves");
 let moves = 0;
-movesContainer.innerHTML = 0;
+//  movesContainer.innerHTML = 0;
 function addMove(){
   moves++;
 // e actualiza no marcador de moves
@@ -148,17 +148,15 @@ function addMove(){
 /*****   PARA O RATING   *****/
 
 const score = document.querySelector(".stars");
-//score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
 score.innerHTML = `<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>`;
+
 function rating(){
   switch(moves){
     case 10:
-//      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
       score.innerHTML = '<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>';
     break;
 
     case 13:
-//      score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
       score.innerHTML = '<i class="fa fa-star"></i> <i class="fa fa-star"></i>';
     break;
 
@@ -177,7 +175,7 @@ function rating(){
 
 const restartButton = document.querySelector(".restart");
 restartButton.addEventListener("click", function(){
-  
+
   // remover todas as cartas
   cardsContainer.innerHTML = "";
 
@@ -188,7 +186,6 @@ restartButton.addEventListener("click", function(){
   matchedCards = [];
   moves = 0;
   movesContainer.innerHTML = moves;
-//  score.innerHTML = `<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
   score.innerHTML = `<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>`;
 
   clearInterval(runTimer);
@@ -197,88 +194,51 @@ restartButton.addEventListener("click", function(){
   timerContainer.innerHTML = totalSeconds;
 });
 
-
 /**   MODAL   **/
 
-    var modal = document.querySelector(".modal");
-//  var trigger = document.querySelector(".trigger");
-    var closeButton = document.querySelector(".close-button");
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector(".close-button");
 
-    function toggleModal() {
-        modal.classList.toggle("show-modal");
+function toggleModal() {
+  modal.classList.toggle("show-modal");
 
-        const finalMoves = document.getElementById("finalMoves");
-        finalMoves.innerHTML = moves + " moves";
-//       finalMoves.innerHTML = movesContainer + " moves";
+  const finalMoves = document.getElementById("finalMoves");
+  finalMoves.innerHTML = moves + " moves";
 
   const finalTimer = document.getElementById("finalTimer");
   finalTimer.innerHTML = totalSeconds + " seconds";
 
-        const finalScore = document.getElementById("finalStar");
-        finalStar.innerHTML = "star rating: " + score.innerHTML;
+  const finalScore = document.getElementById("finalStar");
+  finalStar.innerHTML = "star rating: " + score.innerHTML;
+}
 
-
-
-
-
-    }
-
-    function windowOnClick(event) {
-        if (event.target === modal) {
-//            toggleModal();
-// sem a linha de cima, clicando fora da x (close) o modal nao fecha.
-        }
-    }
-
-//    trigger.addEventListener("click", toggleModal);
-    closeButton.addEventListener("click", toggleModal);
+function windowOnClick(event) {
+  if (event.target === modal) {
     window.addEventListener("click", windowOnClick);
+  }
+}
+
+closeButton.addEventListener("click", toggleModal);
+
+
 
 
 /*****   PARA O RESTART BUTTON   *****/
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
-
 
 // para comecar o jogo pela primeira vez (START)
 start();
-
-
-
-
-/*********************   PARA O README   *********************
-
-You need to put a minimum of section in it:
-A title
-How to install and run your app
-How to play
-Minimum requered to use it
-And so on....
-
-
-E AINDA FALTA:
-
-  timer -> feito s´o para segundos
-  modal -> qs feito! Falta mod o conteudo
-
-  
-  transitions das cartas
-
-  responsive - display flex, etc do Flexbox e alguns break-points
-
-  bug do modal q as vezes tem 1 move menos q o counterMoves
-
-*************************************************************/
 

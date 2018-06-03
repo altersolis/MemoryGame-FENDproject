@@ -84,9 +84,6 @@ h1 {
     pointer-events: none;
 }
 
-
-
-
 /*
  * Styles for the Score Panel
  */
@@ -113,7 +110,6 @@ h1 {
     float: right;
     cursor: pointer;
 }
-
 
 
 /**   MODAL   **/
@@ -161,13 +157,3 @@ h1 {
         transform: scale(1.0);
         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
     }
-
-/*
-#finalStar {
-    display: inline;
-    list-style-type: none;
-*/
-
-
-}
-
